@@ -1,0 +1,260 @@
+\<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anmol Goyal - Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f4f4f6;
+      --text: #222;
+      --card: #ffffff;
+      --muted: #6c757d;
+      --accent: #6a11cb;
+      --accent-2: #2575fc;
+      --shadow: 0 6px 20px rgba(0,0,0,.08);
+      --ring: 0 0 0 3px rgba(37,117,252,.15);
+    }
+    .dark-mode {
+      --bg: #121212;
+      --text: #e8e8e8;
+      --card: #1b1b1b;
+      --muted: #a0a0a0;
+      --accent: #8b5cf6;
+      --accent-2: #22d3ee;
+      --shadow: 0 10px 28px rgba(0,0,0,.35);
+      --ring: 0 0 0 3px rgba(136,84,255,.18);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 28px 20px 40px;
+      transition: background-color .45s ease, color .45s ease;
+    }
+
+    /* Theme toggle button */
+    .toggle-btn {
+      position: fixed;
+      top: 16px; right: 16px;
+      border: 0; background: transparent;
+      font-size: 22px; cursor: pointer;
+      padding: 8px; border-radius: 12px;
+      color: var(--text);
+      transition: transform .4s ease, box-shadow .3s ease;
+    }
+    .toggle-btn:hover { transform: rotate(20deg); box-shadow: var(--ring); }
+
+    /* Grid container */
+    .container {
+      display: grid;
+      grid-template-columns: 1.1fr 2fr; /* Asymmetry */
+      gap: 22px;
+      width: 100%;
+      max-width: 1120px;
+      grid-template-areas:
+        "profile  about"
+        "contact  skills"
+        "projects projects";
+    }
+
+    /* Card base */
+    .box {
+      background: var(--card);
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+      transition: transform .35s ease, box-shadow .35s ease, background-color .45s ease, color .45s ease;
+      opacity: 0; /* will fade in */
+    }
+    .box:hover { transform: translateY(-4px); box-shadow: 0 14px 28px rgba(0,0,0,.14); }
+
+    /* Animations */
+    .fade-left { animation: fadeLeft .8s .05s forwards; }
+    .fade-right { animation: fadeRight .8s .1s forwards; }
+    .slide-up-1 { animation: slideUp .8s .15s forwards; }
+    .slide-up-2 { animation: slideUp .8s .2s forwards; }
+    .fade-bottom { animation: fadeBottom .85s .25s forwards; }
+    @keyframes fadeLeft { from{opacity:0; transform: translateX(-40px);} to{opacity:1; transform:none;} }
+    @keyframes fadeRight{ from{opacity:0; transform: translateX(40px);}  to{opacity:1; transform:none;} }
+    @keyframes slideUp   { from{opacity:0; transform: translateY(42px);}  to{opacity:1; transform:none;} }
+    @keyframes fadeBottom{ from{opacity:0; transform: translateY(60px);} to{opacity:1; transform:none;} }
+
+    /* Explicit Grid Placement */
+    .profile { grid-area: profile; display: grid; place-items: center; }
+    .contact { grid-area: contact; }
+    .about   { grid-area: about; }
+    .skills  { grid-area: skills; }
+    .projects{ grid-area: projects; }
+    
+    .avatar {
+      width: min(92%, 340px);
+      aspect-ratio: 1/1;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 6px solid transparent;
+      background:
+        linear-gradient(var(--card), var(--card)) padding-box,
+        linear-gradient(45deg, var(--accent), var(--accent-2)) border-box;
+      transition: transform .45s ease, box-shadow .45s ease;
+    }
+    .avatar:hover { transform: scale(1.035); box-shadow: 0 0 0 6px rgba(0,0,0,.04), 0 0 22px rgba(102,126,234,.35); }
+
+    /* About */
+    .about h2 { margin: 0 0 10px; font-size: 1.45rem; }
+    .about p { line-height: 1.75; font-size: 1rem; color: var(--text); margin: 0; }
+    .about p + p { margin-top: 14px; }
+
+    /* Section Titles (Skills, Contact, Projects) */
+    .skills h2,
+    .contact h2,
+    .projects h2 {
+      margin: 0 0 10px;
+      font-size: 1.3rem;
+    }
+    
+    /* Skills */
+    .skills .group { margin-top: 10px; }
+    .skills .label { font-weight: 600; color: var(--muted); margin-bottom: 6px; }
+    .skills ul { margin: 0 0 6px 18px; line-height: 1.85; }
+
+    /* Contact */
+    .contact ul { list-style: disc; margin: 8px 0 0 22px; line-height: 1.9; padding-left: 0; }
+    .contact li { display: flex; align-items: center; gap: 10px; }
+    .contact img { width: 22px; height: 22px; }
+    .contact a { color: inherit; text-decoration: none; border-bottom: 1px dashed transparent; transition: border-color .25s ease; }
+    .contact a:hover { border-color: var(--accent-2); }
+
+    /* Helper */
+    .muted { color: var(--muted); }
+
+    /* Tip */
+    .tip { margin-top: 16px; opacity: .8; font-size: .92rem; text-align: center; }
+
+    /* Responsive */
+    @media (max-width: 920px) {
+      .container {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+          "profile"
+          "about"
+          "contact"
+          "skills"
+          "projects";
+      }
+    }
+  </style>
+</head>
+<body>
+  <button id="themeToggle" class="toggle-btn" aria-label="Toggle color theme">🌗</button>
+
+  <main class="container">
+    <section class="box profile fade-left" aria-label="Profile">
+      <img class="avatar" src="profile.jpg" alt="Profile photo of Anmol Goyal" />
+    </section>
+
+    <section class="box about fade-right" aria-label="About Me">
+      <h2>About Me</h2>
+      <p>I'm Anmol Goyal, a passionate and curious first-year B.Tech Computer Science and Engineering student at SRM Kattankulathur. I'm actively exploring the world of computer science with a specialization in Software Engineering.</p>
+      <p>I believe in learning by building, and while I don’t have projects to showcase yet, I’m steadily building the foundation for exciting work ahead. I enjoy learning new technologies and am currently diving deep into C, Vim, and Linux.</p>
+    </section>
+
+    <section class="box contact slide-up-1" aria-label="Contact">
+      <h2>Contact</h2>
+      <ul>
+        <li>
+          <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/gmail.svg" alt="Gmail icon" />
+          <a href="mailto:anmolafk7@gmail.com">anmolafk7@gmail.com</a>
+        </li>
+        <li>
+          <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg" alt="X (Twitter) icon" />
+          <a href="https://twitter.com/anmol_goyal7" target="_blank" rel="noopener">@anmol_goyal7</a>
+        </li>
+        <li>
+          <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg" alt="LinkedIn icon" />
+          <a href="https://www.linkedin.com/in/anmol-goyal-92b460378/" target="_blank" rel="noopener">anmol-goyal-92b460378</a>
+        </li>
+      </ul>
+      <p class="muted" style="margin-top:10px;">I try to reply within a day.</p>
+    </section>
+    
+    <section class="box skills slide-up-2" aria-label="Skills">
+      <h2>Skills</h2>
+      <div class="group">
+        <div class="label">Core</div>
+        <ul>
+          <li>C</li>
+          <li>Vim / Linux</li>
+        </ul>
+      </div>
+      <div class="group">
+        <div class="label">Currently Learning</div>
+        <ul>
+          <li>Deepening C, Vim & Linux</li>
+        </ul>
+      </div>
+      <div class="group">
+        <div class="label">Exploring Next</div>
+        <ul>
+          <li>C++</li>
+          <li>Python</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="box projects fade-bottom" aria-label="Projects">
+      <h2>Projects</h2>
+      <p class="muted">🚧 No projects yet — coming soon.</p>
+    </section>
+  </main>
+
+  <p class="tip">Tip: Use <b>j</b>/<b>k</b> to scroll and <b>c</b> to toggle theme. The 🌗 button works too.</p>
+
+  <script>
+    // Theme state
+    const body = document.body;
+    const toggleBtn = document.getElementById('themeToggle');
+    const stored = localStorage.getItem('theme');
+    if (stored === 'dark') body.classList.add('dark-mode');
+    toggleBtn.textContent = body.classList.contains('dark-mode') ? '☀️' : '🌗';
+
+    function toggleTheme() {
+      body.classList.toggle('dark-mode');
+      localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
+      toggleBtn.textContent = body.classList.contains('dark-mode') ? '☀️' : '🌗';
+    }
+
+    toggleBtn.addEventListener('click', toggleTheme);
+
+    // Keyboard shortcuts: j/k scroll, c toggle
+    function isTypingInInput(e){
+      const t = e.target;
+      return ['INPUT','TEXTAREA'].includes(t.tagName) || t.isContentEditable;
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (isTypingInInput(e)) return;
+      if (e.key === 'c' || e.key === 'C') {
+        e.preventDefault();
+        toggleTheme();
+      } else if (e.key === 'j' || e.key === 'J') {
+        e.preventDefault();
+        window.scrollBy({ top: Math.max(120, window.innerHeight * 0.18), left: 0, behavior: 'smooth' });
+      } else if (e.key === 'k' || e.key === 'K') {
+        e.preventDefault();
+        window.scrollBy({ top: -Math.max(120, window.innerHeight * 0.18), left: 0, behavior: 'smooth' });
+      }
+    });
+  </script>
+</body>
+</html>
