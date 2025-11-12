@@ -43,7 +43,6 @@
       transition: background-color .45s ease, color .45s ease;
     }
 
-    /* Theme toggle button */
     .toggle-btn {
       position: fixed;
       top: 16px; right: 16px;
@@ -55,10 +54,9 @@
     }
     .toggle-btn:hover { transform: rotate(20deg); box-shadow: var(--ring); }
 
-    /* Grid container */
     .container {
       display: grid;
-      grid-template-columns: 1.1fr 2fr; /* Asymmetry */
+      grid-template-columns: 1.1fr 2fr;
       gap: 22px;
       width: 100%;
       max-width: 1120px;
@@ -68,18 +66,16 @@
         "projects projects";
     }
 
-    /* Card base */
     .box {
       background: var(--card);
       border-radius: 18px;
       padding: 22px;
       box-shadow: var(--shadow);
       transition: transform .35s ease, box-shadow .35s ease, background-color .45s ease, color .45s ease;
-      opacity: 0; /* will fade in */
+      opacity: 0;
     }
     .box:hover { transform: translateY(-4px); box-shadow: 0 14px 28px rgba(0,0,0,.14); }
 
-    /* Animations */
     .fade-left { animation: fadeLeft .8s .05s forwards; }
     .fade-right { animation: fadeRight .8s .1s forwards; }
     .slide-up-1 { animation: slideUp .8s .15s forwards; }
@@ -90,7 +86,6 @@
     @keyframes slideUp   { from{opacity:0; transform: translateY(42px);}  to{opacity:1; transform:none;} }
     @keyframes fadeBottom{ from{opacity:0; transform: translateY(60px);} to{opacity:1; transform:none;} }
 
-    /* Explicit Grid Placement */
     .profile { grid-area: profile; display: grid; place-items: center; }
     .contact { grid-area: contact; }
     .about   { grid-area: about; }
@@ -110,12 +105,10 @@
     }
     .avatar:hover { transform: scale(1.035); box-shadow: 0 0 0 6px rgba(0,0,0,.04), 0 0 22px rgba(102,126,234,.35); }
 
-    /* About */
     .about h2 { margin: 0 0 10px; font-size: 1.45rem; }
     .about p { line-height: 1.75; font-size: 1rem; color: var(--text); margin: 0; }
     .about p + p { margin-top: 14px; }
 
-    /* Section Titles (Skills, Contact, Projects) */
     .skills h2,
     .contact h2,
     .projects h2 {
@@ -123,25 +116,20 @@
       font-size: 1.3rem;
     }
     
-    /* Skills */
     .skills .group { margin-top: 10px; }
     .skills .label { font-weight: 600; color: var(--muted); margin-bottom: 6px; }
     .skills ul { margin: 0 0 6px 18px; line-height: 1.85; }
 
-    /* Contact */
     .contact ul { list-style: disc; margin: 8px 0 0 22px; line-height: 1.9; padding-left: 0; }
     .contact li { display: flex; align-items: center; gap: 10px; }
     .contact img { width: 22px; height: 22px; }
     .contact a { color: inherit; text-decoration: none; border-bottom: 1px dashed transparent; transition: border-color .25s ease; }
     .contact a:hover { border-color: var(--accent-2); }
 
-    /* Helper */
     .muted { color: var(--muted); }
 
-    /* Tip */
     .tip { margin-top: 16px; opacity: .8; font-size: .92rem; text-align: center; }
 
-    /* Responsive */
     @media (max-width: 920px) {
       .container {
         grid-template-columns: 1fr;
@@ -165,8 +153,7 @@
 
     <section class="box about fade-right" aria-label="About Me">
       <h2>About Me</h2>
-      <p>I'm Anmol Goyal, a passionate and curious first-year B.Tech Computer Science and Engineering student at SRM Kattankulathur. I'm actively exploring the world of computer science with a specialization in Software Engineering.</p>
-      <p>I believe in learning by building, and while I don’t have projects to showcase yet, I’m steadily building the foundation for exciting work ahead. I enjoy learning new technologies and am currently diving deep into C and Bash.</p>
+      <p>I'm Anmol Goyal, a freshman B.Tech Computer Science and Engineering student at SRMIST Kattankulathur. I have some experience in C and Python, and I’m currently working to deepen my understanding of both while preparing to learn C++.</p>
     </section>
 
     <section class="box contact slide-up-1" aria-label="Contact">
@@ -194,20 +181,19 @@
         <div class="label">Core</div>
         <ul>
           <li>C</li>
-          <li>Vim / Linux</li>
+          <li>Linux</li>
         </ul>
       </div>
       <div class="group">
         <div class="label">Currently Learning</div>
         <ul>
-          <li>Deepening C, Vim & Linux</li>
+          <li>Deepening C and Python</li>
         </ul>
       </div>
       <div class="group">
         <div class="label">Exploring Next</div>
         <ul>
           <li>C++</li>
-          <li>Python</li>
         </ul>
       </div>
     </section>
@@ -221,7 +207,6 @@
   <p class="tip">Tip: Use <b>j</b>/<b>k</b> to scroll and <b>c</b> to toggle theme. The 🌗 button works too.</p>
 
   <script>
-    // Theme state
     const body = document.body;
     const toggleBtn = document.getElementById('themeToggle');
     const stored = localStorage.getItem('theme');
@@ -236,7 +221,6 @@
 
     toggleBtn.addEventListener('click', toggleTheme);
 
-    // Keyboard shortcuts: j/k scroll, c toggle
     function isTypingInInput(e){
       const t = e.target;
       return ['INPUT','TEXTAREA'].includes(t.tagName) || t.isContentEditable;
@@ -257,7 +241,4 @@
     });
   </script>
 </body>
-
 </html>
-
-
